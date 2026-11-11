@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CareWell Clinic – Book an Appointment (Demo)</title>
+<meta name="description" content="Demo website for a neighbourhood clinic: services, doctors, timings and WhatsApp appointment booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--brand:#0E7C86;--brand-d:#095E66;--accent:#FFB547;--ink:#13222B;--muted:#5B6B75;--bg:#F6FAFB;--card:#fff;--line:#E3ECEF;--wa:#25D366}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+.demo{background:var(--ink);color:#cfe;font-size:.8rem;text-align:center;padding:6px 12px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem}
+.logo i{width:34px;height:34px;border-radius:10px;background:var(--brand);display:grid;place-items:center;color:#fff;font-style:normal;font-size:1.2rem}
+nav a{margin-left:22px;color:var(--muted);font-weight:500;font-size:.95rem}
+nav a:hover{color:var(--brand)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:12px;font-weight:600;border:0;cursor:pointer;font-size:.95rem;font-family:inherit;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-p{background:var(--brand);color:#fff}.btn-p:hover{background:var(--brand-d)}
+.btn-o{background:#fff;border:1.5px solid var(--line)}
+.btn-wa{background:var(--wa);color:#05310f}
+.hero{padding:70px 0 50px;background:linear-gradient(180deg,#E7F5F6,var(--bg))}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.badge{display:inline-block;background:#fff;border:1px solid var(--line);padding:6px 12px;border-radius:999px;font-size:.85rem;color:var(--brand);font-weight:600;margin-bottom:16px}
+h1{font-size:clamp(2rem,4.5vw,3.1rem);line-height:1.15;letter-spacing:-.02em}
+h1 span{color:var(--brand)}
+.hero p{color:var(--muted);margin:16px 0 26px;font-size:1.08rem}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+.status{margin-top:22px;display:flex;align-items:center;gap:10px;font-weight:600}
+.dot{width:10px;height:10px;border-radius:50%}
+.open{background:#22c55e;box-shadow:0 0 0 4px #22c55e33}.closed{background:#ef4444;box-shadow:0 0 0 4px #ef444433}
+.hero-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 20px 50px -25px #0E7C8655}
+.hero-card h3{margin-bottom:12px}
+.hours li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--line);list-style:none;font-size:.95rem}
+.hours li.today{color:var(--brand);font-weight:700}
+section{padding:64px 0}
+.eyebrow{color:var(--brand);font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+h2{font-size:clamp(1.6rem,3.2vw,2.2rem);margin:6px 0 26px;letter-spacing:-.01em}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card .ic{width:44px;height:44px;border-radius:12px;background:#E7F5F6;display:grid;place-items:center;font-size:1.3rem;margin-bottom:12px}
+.card p{color:var(--muted);font-size:.93rem}
+.price{margin-top:10px;font-weight:700;color:var(--brand)}
+.doc{display:flex;gap:14px;align-items:center}
+.av{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:1.1rem;flex:none}
+.tag{display:inline-block;font-size:.75rem;background:#FFF4E0;color:#8a5a00;border-radius:999px;padding:2px 10px;margin-top:6px}
+.book{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+form{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;display:grid;gap:14px}
+label{font-size:.85rem;font-weight:600;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.slots{display:flex;flex-wrap:wrap;gap:8px}
+.slot{padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:.88rem;cursor:pointer;background:#fff;font-family:inherit}
+.slot.sel{background:var(--brand);color:#fff;border-color:var(--brand)}
+.slot:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.err{color:#c62828;font-size:.85rem;min-height:1em}
+.steps li{list-style:none;display:flex;gap:12px;margin-bottom:16px}
+.steps b{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;flex:none;font-size:.85rem}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:10px}
+.faq summary{font-weight:600;cursor:pointer}
+.faq p{color:var(--muted);margin-top:8px}
+footer{background:var(--ink);color:#b9c6cc;padding:36px 0;font-size:.9rem}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.fab{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 25px -8px #25D366aa;z-index:30}
+.fab svg{width:28px;height:28px;fill:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;transition:transform .3s;z-index:40;font-size:.92rem}
+.toast.show{transform:translateX(-50%) translateY(0)}
+@media(max-width:860px){.hero .wrap,.book{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}nav{display:none}}
+@media(max-width:560px){.grid,.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="demo">Demo project by Melwin Naigam – fictional clinic, built to show a small-business website with WhatsApp booking.</div>
+<header><div class="wrap">
+  <a href="#" class="logo"><i>+</i>CareWell Clinic</a>
+  <nav><a href="#services">Services</a><a href="#doctors">Doctors</a><a href="#book">Book</a><a href="#faq">FAQ</a></nav>
+  <a href="#book" class="btn btn-p">Book appointment</a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div>
+    <span class="badge">General &amp; family clinic · Pune</span>
+    <h1>Same-day appointments, <span>no waiting room queues</span></h1>
+    <p>Pick a time slot, confirm on WhatsApp, and walk in at your time. Consultations, health check-ups and lab tests under one roof.</p>
+    <div class="cta"><a href="#book" class="btn btn-p">Book a slot</a><a href="#services" class="btn btn-o">View services</a></div>
+    <div class="status"><span class="dot" id="dot"></span><span id="statusText">Checking timings…</span></div>
+  </div>
+  <div class="hero-card">
+    <h3>Clinic timings</h3>
+    <ul class="hours" id="hours"></ul>
+  </div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="eyebrow">Services</div><h2>What we help with</h2>
+  <div class="grid" id="services-grid"></div>
+</div></section>
+
+<section id="doctors" style="background:#fff"><div class="wrap">
+  <div class="eyebrow">Our team</div><h2>Doctors</h2>
+  <div class="grid" id="doctor-grid"></div>
+</div></section>
+
+<section id="book"><div class="wrap book">
+  <div>
+    <div class="eyebrow">Book online</div><h2>Book in 3 steps</h2>
+    <ul class="steps">
+      <li><b>1</b><div><strong>Choose service, doctor and date</strong><br><span style="color:var(--muted)">Slots already booked are greyed out.</span></div></li>
+      <li><b>2</b><div><strong>Pick a time slot</strong><br><span style="color:var(--muted)">Past times for today are hidden automatically.</span></div></li>
+      <li><b>3</b><div><strong>Confirm on WhatsApp</strong><br><span style="color:var(--muted)">Your details open in a pre-filled WhatsApp message to the clinic.</span></div></li>
+    </ul>
+  </div>
+  <form id="form" novalidate>
+    <label>Full name<input id="name" autocomplete="name" placeholder="e.g. Priya Sharma"></label>
+    <div class="row">
+      <label>Mobile number<input id="phone" inputmode="numeric" maxlength="10" placeholder="10-digit number"></label>
+      <label>Service<select id="service"></select></label>
+    </div>
+    <div class="row">
+      <label>Doctor<select id="doctor"></select></label>
+      <label>Date<input type="date" id="date"></label>
+    </div>
+    <label>Time slot<div class="slots" id="slots"></div></label>
+    <label>Notes (optional)<textarea id="notes" rows="2" placeholder="Symptoms or questions"></textarea></label>
+    <div class="err" id="err"></div>
+    <button class="btn btn-wa" type="submit">Confirm on WhatsApp</button>
+  </form>
+</div></section>
+
+<section id="faq" style="background:#fff"><div class="wrap faq">
+  <div class="eyebrow">FAQ</div><h2>Good to know</h2>
+  <details><summary>Do I need to pay online?</summary><p>No. You pay at the clinic after your consultation by cash, card or UPI.</p></details>
+  <details><summary>Can I reschedule?</summary><p>Yes, reply to your WhatsApp confirmation with a new time and we'll update it.</p></details>
+  <details><summary>Is there parking?</summary><p>Two-wheeler parking is available in front of the clinic.</p></details>
+</div></section>
+
+<footer><div class="wrap">
+  <div><strong style="color:#fff">CareWell Clinic</strong> (demo)<br>Fictional address, Pune · For demonstration only</div>
+  <div>Built with HTML, CSS and vanilla JavaScript by <a href="https://melwin139.github.io" style="color:#fff;text-decoration:underline">Melwin Naigam</a></div>
+</div></footer>
+
+<a class="fab" id="fab" href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.3-.5.1-1.1.1-1.8-.1-.4-.1-.9-.3-1.6-.6-2.8-1.2-4.6-4-4.8-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.1 1 2.1 1.3 2.4 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg></a>
+<div class="toast" id="toast"></div>
+
+<script>
+// ---- Config: change these for a real client ----
+const CLINIC_WHATSAPP = "910000000000"; // demo number, replace with the clinic's number
+const HOURS = { // 24h format, null = closed
+  0:null, 1:[[9,13],[17,21]], 2:[[9,13],[17,21]], 3:[[9,13],[17,21]],
+  4:[[9,13],[17,21]], 5:[[9,13],[17,21]], 6:[[9,14]]
+};
+const SERVICES = [
+  {id:"gp",icon:"🩺",name:"General consultation",desc:"Fever, cough, infections and everyday health problems.",price:"₹400",mins:15},
+  {id:"child",icon:"🧸",name:"Child health",desc:"Check-ups, vaccinations and growth tracking for kids.",price:"₹500",mins:20},
+  {id:"diab",icon:"💉",name:"Diabetes & BP care",desc:"Regular monitoring, diet advice and medicine review.",price:"₹450",mins:20},
+  {id:"lab",icon:"🧪",name:"Lab tests",desc:"Blood tests with reports on WhatsApp the same day.",price:"From ₹250",mins:10},
+  {id:"check",icon:"❤️",name:"Full body check-up",desc:"Annual health package with doctor review.",price:"₹1,999",mins:30},
+  {id:"tele",icon:"📱",name:"Video consultation",desc:"Follow-ups from home over a WhatsApp video call.",price:"₹350",mins:15}
+];
+const DOCTORS = [
+  {id:"d1",name:"Dr. A. Kulkarni",role:"MBBS · General Physician",days:[1,2,3,4,5,6],color:"#0E7C86",services:["gp","diab","check","tele","lab"]},
+  {id:"d2",name:"Dr. S. Mehta",role:"MD · Paediatrics",days:[1,3,5],color:"#E07A5F",services:["child","gp","tele"]},
+  {id:"d3",name:"Dr. R. Iyer",role:"MD · Internal Medicine",days:[2,4,6],color:"#3D5A80",services:["diab","check","gp","lab"]}
+];
+// Simulated already-booked slots (a real site would load these from a backend)
+const BOOKED = new Set(["d1|10:00","d1|11:30","d2|17:30","d3|09:30","d1|18:00"]);
+
+const $ = s => document.querySelector(s);
+const DAY = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const fmt = h => { const hh=Math.floor(h), mm=Math.round((h-hh)*60); const ap=hh>=12?"PM":"AM"; const h12=((hh+11)%12)+1; return `${h12}:${String(mm).padStart(2,"0")} ${ap}`; };
+
+// Opening hours + live open/closed status
+function renderHours(){
+  const now=new Date(), d=now.getDay();
+  $("#hours").innerHTML = [1,2,3,4,5,6,0].map(i=>{
+    const h=HOURS[i]; const txt=h?h.map(([a,b])=>`${fmt(a)} – ${fmt(b)}`).join(", "):"Closed";
+    return `<li class="${i===d?"today":""}"><span>${DAY[i]}</span><span>${txt}</span></li>`;
+  }).join("");
+  const cur=now.getHours()+now.getMinutes()/60, today=HOURS[d];
+  const open = today && today.some(([a,b])=>cur>=a&&cur<b);
+  $("#dot").className="dot "+(open?"open":"closed");
+  let msg = open ? "Open now" : "Closed now";
+  if(!open){ // find next opening
+    for(let k=0;k<8;k++){ const dd=(d+k)%7, h=HOURS[dd]; if(!h) continue;
+      const nxt=h.find(([a])=>k>0||a>cur); if(nxt){ msg+=` · opens ${k===0?"today":k===1?"tomorrow":DAY[dd]} at ${fmt(nxt[0])}`; break; } }
+  }
+  $("#statusText").textContent=msg;
+}
+
+function renderCards(){
+  $("#services-grid").innerHTML = SERVICES.map(s=>`<div class="card"><div class="ic">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p><div class="price">${s.price}</div></div>`).join("");
+  $("#doctor-grid").innerHTML = DOCTORS.map(d=>`<div class="card doc"><div class="av" style="background:${d.color}">${d.name.split(" ").slice(-1)[0][0]}</div><div><h3>${d.name}</h3><p>${d.role}</p><span class="tag">${d.days.map(x=>DAY[x].slice(0,3)).join(", ")}</span></div></div>`).join("");
+  $("#service").innerHTML = SERVICES.map(s=>`<option value="${s.id}">${s.name} (${s.price})</option>`).join("");
+}
+
+function fillDoctors(){
+  const svc=$("#service").value;
+  $("#doctor").innerHTML = DOCTORS.filter(d=>d.services.includes(svc)).map(d=>`<option value="${d.id}">${d.name}</option>`).join("");
+  renderSlots();
+}
+
+let selected=null;
+function renderSlots(){
+  selected=null;
+  const box=$("#slots"), doc=DOCTORS.find(d=>d.id===$("#doctor").value), val=$("#date").value;
+  if(!doc||!val){ box.innerHTML='<span style="color:var(--muted);font-weight:400">Choose a doctor and date</span>'; return; }
+  const date=new Date(val+"T00:00"), day=date.getDay(), hrs=HOURS[day];
+  if(!hrs||!doc.days.includes(day)){ box.innerHTML=`<span style="color:var(--muted);font-weight:400">${doc.name} is not available on ${DAY[day]}s. Try ${doc.days.map(x=>DAY[x]).join(", ")}.</span>`; return; }
+  const now=new Date(), isToday=date.toDateString()===now.toDateString(), cur=now.getHours()+now.getMinutes()/60;
+  const svc=SERVICES.find(s=>s.id===$("#service").value), step=Math.max(svc.mins,15)/60;
+  let out=[];
+  hrs.forEach(([a,b])=>{ for(let t=a;t+step<=b+1e-9;t+=0.5){ if(isToday&&t<=cur+0.25) continue;
+    const key=`${doc.id}|${String(Math.floor(t)).padStart(2,"0")}:${t%1?"30":"00"}`;
+    out.push(`<button type="button" class="slot" data-t="${t}" ${BOOKED.has(key)?"disabled":""}>${fmt(t)}</button>`); } });
+  box.innerHTML = out.length?out.join(""):'<span style="color:var(--muted);font-weight:400">No slots left today. Please pick another date.</span>';
+}
+
+$("#slots").addEventListener("click",e=>{
+  const b=e.target.closest(".slot"); if(!b||b.disabled) return;
+  document.querySelectorAll(".slot").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); selected=+b.dataset.t;
+});
+$("#service").addEventListener("change",fillDoctors);
+$("#doctor").addEventListener("change",renderSlots);
+$("#date").addEventListener("change",renderSlots);
+
+$("#form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("#name").value.trim(), phone=$("#phone").value.trim();
+  let err="";
+  if(name.length<2) err="Please enter your name.";
+  else if(!/^[6-9]\d{9}$/.test(phone)) err="Please enter a valid 10-digit Indian mobile number.";
+  else if(!$("#date").value) err="Please choose a date.";
+  else if(selected===null) err="Please pick a time slot.";
+  $("#err").textContent=err; if(err) return;
+  const svc=SERVICES.find(s=>s.id===$("#service").value), doc=DOCTORS.find(d=>d.id===$("#doctor").value);
+  const d=new Date($("#date").value+"T00:00").toLocaleDateString("en-IN",{weekday:"short",day:"numeric",month:"short"});
+  const notes=$("#notes").value.trim();
+  const msg=`Hello CareWell Clinic, I'd like to book an appointment.\n\nName: ${name}\nMobile: ${phone}\nService: ${svc.name}\nDoctor: ${doc.name}\nDate: ${d}\nTime: ${fmt(selected)}${notes?"\nNotes: "+notes:""}`;
+  window.open(`https://wa.me/${CLINIC_WHATSAPP}?text=${encodeURIComponent(msg)}`,"_blank");
+  toast("Opening WhatsApp with your booking details…");
+});
+
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"),2600); }
+
+$("#fab").href=`https://wa.me/${CLINIC_WHATSAPP}?text=${encodeURIComponent("Hello CareWell Clinic, I have a question.")}`;
+const t0=new Date(), localISO=`${t0.getFullYear()}-${String(t0.getMonth()+1).padStart(2,"0")}-${String(t0.getDate()).padStart(2,"0")}`;
+$("#date").min=localISO; $("#date").value=localISO;
+renderHours(); renderCards(); fillDoctors(); setInterval(renderHours,60000);
+</script>
+</body>
+</html>
